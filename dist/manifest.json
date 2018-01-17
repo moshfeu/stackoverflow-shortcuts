@@ -1,0 +1,18 @@
+{
+  "name": "StackOverflow shortcuts",
+  "version": "0.0.1",
+  "description": "Add shortcuts to StackOverflow page",
+  "icons": { "128": "icon.png" },
+  "content_scripts": [
+    { "matches": ["https://*/*"], "js": ["content_script.js"] }
+  ],
+  "permissions": [
+    "https://stackoverflow.com/*"
+  ],
+  "page_action": {
+      "default_name": "StackOverflow shortcuts",
+      "default_icon": "icon.png"
+  },
+  "manifest_version": 2,
+  "content_security_policy": "default-src 'none'; style-src 'self'; script-src 'self'; connect-src https://stackoverflow.com;"
+}

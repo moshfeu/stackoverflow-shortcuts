@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+      "module": "commonjs",
+      "removeComments": true,
+      "lib": [
+          "dom",
+          "es2017"
+      ],
+      "sourceMap": true,
+      "outDir": "./dist",
+      "target": "es5",
+      "watch": true,
+      "allowJs": true,
+      "typeRoots": [ "node_modules/@types" ]
+  },
+  "exclude": [
+      "node_modules"
+  ],
+  "compileOnSave": true
+}
