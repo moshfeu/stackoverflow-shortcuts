@@ -4,7 +4,7 @@
   "description": "Add shortcuts to StackOverflow page",
   "icons": { "128": "icon.png" },
   "content_scripts": [
-    { "matches": ["https://*/*"], "js": ["content_script.js"] }
+    { "matches": ["https://stackoverflow.com/*"], "js": ["content_script.js"] }
   ],
   "permissions": [
     "https://stackoverflow.com/*"

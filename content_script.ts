@@ -1,23 +1,39 @@
 (() => {
+  const events = {
+    a: () => {
+      const command = keys[1];
+      if (command) {
+        goToAnswer(command);
+      }
+    },
+    q: () => {
+      scrollToElement(question);
+    }
+  }
   const keys = [];
 
-  const headerHeight = document.querySelector('.top-bar').getBoundingClientRect().height;
+  const header = document.querySelector('.top-bar');
+  if (!header) {
+    return;
+  }
+  const headerHeight = header.getBoundingClientRect().height;
   const question = document.querySelector('#question');
   const answers = document.querySelectorAll('.answer');
 
   const goToAnswer = (index: number) => {
     const answer = answers[index];
-    const top = answer.getBoundingClientRect().top + document.documentElement.scrollTop - headerHeight;
+    if (answer) {
+      scrollToElement(answer);
+    }
+  }
+
+  const scrollToElement = (element: Element) => {
+    const top = element.getBoundingClientRect().top + document.documentElement.scrollTop - headerHeight;
     scrollTo(0, top);
   }
 
   const fire = () => {
-    if (keys[0] === 'a') {
-      const command = keys[1];
-      if (command) {
-        goToAnswer(command);
-      }
-    }
+    events[keys[0]]();
   }
 
   document.addEventListener('keydown', (event: KeyboardEvent) => {
