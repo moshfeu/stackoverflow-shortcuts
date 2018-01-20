@@ -7,7 +7,16 @@
       }
     },
     q: () => {
-      scrollToElement(question);
+      goTo(question);
+    },
+    u: () => {
+      upvote();
+    },
+    d: () => {
+      downvote();
+    },
+    27: () => {
+      unHighlight();
     }
   }
   const keys = [];
@@ -17,14 +26,43 @@
     return;
   }
   const headerHeight = header.getBoundingClientRect().height;
-  const question = document.querySelector('#question');
-  const answers = document.querySelectorAll('.answer');
+  const question = document.querySelector('#question') as HTMLDivElement;
+  const answers = document.querySelectorAll('.answer') as NodeListOf<HTMLDivElement>;
+  const overlay = document.createElement('div');
+  let current: HTMLDivElement;
+  overlay.classList.add('sosc-overlay');
+  document.body.appendChild(overlay);
 
   const goToAnswer = (index: number) => {
     const answer = answers[index];
     if (answer) {
-      scrollToElement(answer);
+      goTo(answer);
     }
+  }
+
+  const goTo = (elm) => {
+    highlightElement(elm);
+    scrollToElement(elm);
+  }
+
+  const highlightElement = (element: HTMLDivElement) => {
+    const currentHighlight = document.querySelector('.sosc-highlight');
+    currentHighlight && currentHighlight.classList.remove('sosc-highlight');
+    overlay.classList.add('open');
+    element.classList.add('sosc-highlight');
+    current = element;
+  }
+
+  const unHighlight = () => {
+    overlay.classList.remove('open');
+  }
+
+  const upvote = () => {
+    current && (<HTMLLinkElement>current.querySelector('.vote-up-off')).click()
+  }
+
+  const downvote = () => {
+    current && (<HTMLLinkElement>current.querySelector('.vote-down-off')).click()
   }
 
   const scrollToElement = (element: Element) => {
@@ -33,11 +71,13 @@
   }
 
   const fire = () => {
-    events[keys[0]]();
+    if (events[keys[0]]) {
+      events[keys[0]]();
+    }
   }
 
   document.addEventListener('keydown', (event: KeyboardEvent) => {
-    const key = String.fromCharCode(event.keyCode).toLowerCase();
+    let key = events[event.keyCode] ? event.keyCode : String.fromCharCode(event.keyCode).toLowerCase();
     if (!keys.includes(key)) {
       keys.push(key);
       fire();

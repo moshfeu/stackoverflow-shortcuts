@@ -4,14 +4,14 @@
   "description": "Add shortcuts to StackOverflow page",
   "icons": { "128": "icon.png" },
   "content_scripts": [
-    { "matches": ["https://stackoverflow.com/*"], "js": ["content_script.js"] }
+    { "matches": ["https://stackoverflow.com/*"], "js": ["content_script.js"], "css": ["style.css"] }
   ],
   "permissions": [
     "https://stackoverflow.com/*"
   ],
   "page_action": {
-      "default_name": "StackOverflow shortcuts",
-      "default_icon": "icon.png"
+    "default_name": "StackOverflow shortcuts",
+    "default_icon": "icon.png"
   },
   "manifest_version": 2,
   "content_security_policy": "default-src 'none'; style-src 'self'; script-src 'self'; connect-src https://stackoverflow.com;"
