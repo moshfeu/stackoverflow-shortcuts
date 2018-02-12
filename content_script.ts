@@ -1,4 +1,6 @@
 (() => {
+  const OVERLAY_CLASS = 'sosc-overlay';
+  const HIGHLIGHT_CLASS = 'sosc-highlight';
   const events = {
     a: () => {
       const command = keys[1];
@@ -30,7 +32,7 @@
   const answers = document.querySelectorAll('.answer') as NodeListOf<HTMLDivElement>;
   const overlay = document.createElement('div');
   let current: HTMLDivElement;
-  overlay.classList.add('sosc-overlay');
+  overlay.classList.add(OVERLAY_CLASS);
   document.body.appendChild(overlay);
 
   const goToAnswer = (index: number) => {
@@ -46,14 +48,16 @@
   }
 
   const highlightElement = (element: HTMLDivElement) => {
-    const currentHighlight = document.querySelector('.sosc-highlight');
-    currentHighlight && currentHighlight.classList.remove('sosc-highlight');
+    const currentHighlight = document.querySelector(`.${HIGHLIGHT_CLASS}`);
+    currentHighlight && currentHighlight.classList.remove(HIGHLIGHT_CLASS);
     overlay.classList.add('open');
-    element.classList.add('sosc-highlight');
+    element.classList.add(HIGHLIGHT_CLASS);
     current = element;
   }
 
   const unHighlight = () => {
+    current.classList.remove(HIGHLIGHT_CLASS);
+    current = null;
     overlay.classList.remove('open');
   }
 
